@@ -1,11 +1,15 @@
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import ttk, messagebox
 
-# Predefined Exchange Rates (Base: INR)
+# Exchange Rates (Base: INR)
 rates = {
     "INR": 1,
-    "USD": 0.012,  # 1 INR = 0.012 USD
-    "EUR": 0.011   # 1 INR = 0.011 EUR
+    "USD": 0.012,
+    "EUR": 0.011,
+    "GBP": 0.0095,
+    "JPY": 1.8,
+    "AUD": 0.018,
+    "CAD": 0.016
 }
 
 def convert_currency():
@@ -15,50 +19,76 @@ def convert_currency():
         to_curr = to_currency.get()
 
         if amount <= 0:
-            messagebox.showerror("Error", "Please enter a positive amount")
+            messagebox.showerror("Error", "Enter a positive amount")
             return
 
-        # Convert to INR first
+        # Convert to INR
         amount_in_inr = amount / rates[from_curr]
 
-        # Convert from INR to target currency
+        # Convert to target currency
         converted_amount = amount_in_inr * rates[to_curr]
 
         result_label.config(
-            text=f"Converted Amount: {round(converted_amount, 2)} {to_curr}"
+            text=f"{round(amount,2)} {from_curr} = {round(converted_amount,2)} {to_curr}"
         )
 
     except ValueError:
-        messagebox.showerror("Error", "Please enter a valid numeric value")
+        messagebox.showerror("Error", "Enter a valid number")
 
+def swap_currency():
+    from_val = from_currency.get()
+    to_val = to_currency.get()
+    from_currency.set(to_val)
+    to_currency.set(from_val)
 
-# GUI Window
+# Main Window
 window = tk.Tk()
-window.title("Currency Converter")
-window.geometry("350x250")
+window.title("Currency Converter 💱")
+window.geometry("400x300")
+window.resizable(False, False)
 
-# Amount Label and Entry
-tk.Label(window, text="Enter Amount:").pack(pady=5)
-entry_amount = tk.Entry(window)
+# Style
+style = ttk.Style()
+style.configure("TLabel", font=("Arial", 11))
+style.configure("TButton", font=("Arial", 10))
+
+# Title
+title_label = ttk.Label(window, text="Currency Converter 💱", font=("Arial", 16, "bold"))
+title_label.pack(pady=10)
+
+# Amount Entry
+ttk.Label(window, text="Enter Amount:").pack(pady=5)
+entry_amount = ttk.Entry(window)
 entry_amount.pack(pady=5)
 
+# Frame for dropdowns
+frame = ttk.Frame(window)
+frame.pack(pady=10)
+
 # From Currency
-tk.Label(window, text="From Currency:").pack(pady=5)
-from_currency = tk.StringVar()
-from_currency.set("INR")
-tk.OptionMenu(window, from_currency, "INR", "USD", "EUR").pack(pady=5)
+from_currency = tk.StringVar(value="INR")
+ttk.Label(frame, text="From").grid(row=0, column=0, padx=10)
+from_menu = ttk.Combobox(frame, textvariable=from_currency, values=list(rates.keys()), state="readonly")
+from_menu.grid(row=1, column=0, padx=10)
 
 # To Currency
-tk.Label(window, text="To Currency:").pack(pady=5)
-to_currency = tk.StringVar()
-to_currency.set("USD")
-tk.OptionMenu(window, to_currency, "INR", "USD", "EUR").pack(pady=5)
+to_currency = tk.StringVar(value="USD")
+ttk.Label(frame, text="To").grid(row=0, column=1, padx=10)
+to_menu = ttk.Combobox(frame, textvariable=to_currency, values=list(rates.keys()), state="readonly")
+to_menu.grid(row=1, column=1, padx=10)
+
+# Swap Button
+swap_btn = ttk.Button(window, text="Swap 🔄", command=swap_currency)
+swap_btn.pack(pady=5)
 
 # Convert Button
-tk.Button(window, text="Convert", command=convert_currency).pack(pady=10)
+convert_btn = ttk.Button(window, text="Convert", command=convert_currency)
+convert_btn.pack(pady=10)
 
 # Result Label
-result_label = tk.Label(window, text="")
+result_label = ttk.Label(window, text="", font=("Arial", 12, "bold"))
 result_label.pack(pady=10)
 
+# Run App
 window.mainloop()
+
