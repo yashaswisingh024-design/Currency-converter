@@ -3,7 +3,7 @@
 ## 📌 Overview
 
 This is a GUI-based Currency Converter built using Python and Tkinter.
-It allows users to convert between multiple currencies with a simple and user-friendly interface.
+It allows users to convert between multiple currencies with a simple and user-friendly interface.Menu-driven interface for easy navigation
 
 ---
 
@@ -50,6 +50,18 @@ python app.py
 * Use **Clear** to reset inputs
 
 ---
+## 📊 Example Usage
+
+Enter Amount: 100  
+From: INR  
+To: USD  
+
+Output: 100 INR = 1.20 USD
+
+## 🔮 Future Improvements
+- Add category for expenses  
+- Save data to file  
+- Add date tracking
 
 ## 🎯 Learning Outcome
 
