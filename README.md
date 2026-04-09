@@ -40,6 +40,7 @@ python app.py
 ```
 
 ---
+<img width="517" height="475" alt="Screenshot 2026-04-09 215035" src="https://github.com/user-attachments/assets/18a3045c-6f93-4bc9-8864-444d7915a945" />
 
 ## 📊 Functionality
 
