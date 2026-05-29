@@ -70,6 +70,7 @@ Output: 100 INR = 1.20 USD
 * GUI development using Tkinter
 * Handling user input and validation
 * Implementing real-world logic in Python
+* Practicing GitHub achievements 🚀
 
 ---
 
